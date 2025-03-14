@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod"
 
-  export const create = async (state: unknown , formData : FormData) => {
+  export const create = async (_state: unknown , formData : FormData) => {
     const schema = z.object({
         title : z.string().min(1)
     });
