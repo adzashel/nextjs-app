@@ -9,8 +9,6 @@ type Item = {
     completed: boolean
 }
 
-
-
 export const TodoItem = ({ data }: { data: Item }) => {
     const router = useRouter()
    async function handleChange(e:React.ChangeEvent<HTMLInputElement>) {
