@@ -9,8 +9,12 @@ type Item = {
 
 const page = async () => {
   // Fetch data from an API
-  const data = await fetch(process.env.NEXT_PUBLIC_API as string)
-  const response : Item[] = await data.json();
+  const data = await fetch(process.env.NEXT_PUBLIC_API as string , {
+    next : {
+      tags : ['validate']
+    }
+  })
+  const response : Item[] = await data.json(); 
   return (
     <main>
       <Form />

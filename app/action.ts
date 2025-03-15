@@ -1,11 +1,11 @@
 'use server'
 
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { z } from "zod"
 
   export const create = async (_state: unknown , formData : FormData) => {
     const schema = z.object({
-        title : z.string().min(1)
+        title : z.string().min(3)
     });
 
     const parsedData =  schema.safeParse({
@@ -35,7 +35,22 @@ import { z } from "zod"
         return {message : "Error creating"}
     }
 
-    revalidatePath('/')
+    revalidateTag('validate')
 
     return { message : "success" }
+}
+
+// delete item
+export const remove = async(state : unknown , id : string) => {
+    const rest = await fetch(`${ process.env.NEXT_PUBLIC_API}/${ id }` , {
+        method : "DELETE"
+    });
+
+    if(!rest.ok) {
+        return { message : "Failed to delete"}
+    }
+
+    revalidateTag('validate');
+
+    return { message : "Deleted" }
 }
